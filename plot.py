@@ -8,15 +8,21 @@ latitude_list = []
 longitude_list = []
 
 
-with open('kalman_test.json', 'r') as f:
-    filtered_data = json.load(f)
+with open('kalman50.txt', 'r') as f:
+    temp = f.readlines()
+    # print(temp)
 
-for element in filtered_data:
-    predicted_latitude_list.append(element["predicted_lat"])
-    predicted_longitude_list.append(element["predicted_lon"])
-    if (element["gps_lat"] and element["gps_lon"]):
-        latitude_list.append(element["gps_lat"])
-        longitude_list.append(element["gps_lon"]) 
+for element in temp:
+    element = element.replace('\r\n', '').split(',')
+    # print(element)
+    predicted_latitude_list.append(float(element[3]))
+    predicted_longitude_list.append(float(element[4]))
+    if (element[0] and element[1]):
+        latitude_list.append(float(element[0]))
+        longitude_list.append(float(element[1]))
+
+
+    
   
 # GoogleMapPlotter return Map object 
 # Pass the center latitude and 
